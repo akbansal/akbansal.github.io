@@ -7,22 +7,25 @@ jQuery(document).ready(function() {
  //function that returns element's y position
     
     jQuery("a[href*=#]").on('click', function(e) {
-      var scrollTarget = jQuery(this.hash).offset().top;
-      if(scrollTarget)
+      if(jQuery(this.hash) && jQuery(this.hash).offset()){
+        var scrollTarget = jQuery(this.hash).offset().top;
+        if(scrollTarget)
           e.preventDefault();
         if(parseInt(scrollTarget) !== parseInt(jQuery(window).scrollTop())) {
           var intro = jQuery("#intro"),
-            nav2 = jQuery(".nav2");
-        if (ios) nav2.hide();
+              nav2 = jQuery(".nav2");
+          if (ios) 
+            nav2.hide();
           jQuery('html,body').animate({scrollTop:scrollTarget}, 1200, "swing", function(evt) {
-          if (ios) {
-            nav2.css({position:'absolute', top:scrollTarget + 34});
-            var nav2clone = jQuery(".nav2");
-            if(intro.height() <= nav2clone.position().top)
-              nav2clone.show();
-          }
-      });
-    }
+            if (ios) {
+              nav2.css({position:'absolute', top:scrollTarget + 34});
+              var nav2clone = jQuery(".nav2");
+              if(intro.height() <= nav2clone.position().top)
+                nav2clone.show();
+            }
+          });
+        }
+      }
     });
 
     if (ios) {
